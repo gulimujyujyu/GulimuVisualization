@@ -8,6 +8,16 @@ handlers:
 - url: /
   script: app.view.index.app
 
+- url: /weibo
+  script: app.view.weibo.app
+
+- url: /weibo/.*
+  script: app.view.weibo.app
+
+- url: /(.*\.txt)
+  static_files: static/misc/\1
+  upload: static/misc/(.*\.txt)
+
 - url: /static
   static_dir: static
 

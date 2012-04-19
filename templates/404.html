@@ -1,79 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Hello World</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+{% extends "base.html" %}
 
-  <!-- Le styles -->
-  <link href="/static/css/bootstrap.css" rel="stylesheet">
-  <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+{% block title %}Page not found.{% endblock %}
+
+{% block more_css_include %}
   <link href="/static/css/404.css" rel="stylesheet">
+{% endblock %}
 
-  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+{% block more_js_include %}
+{% endblock %}
 
-  <!-- javascripts for index.html -->
-  <!-- Le javascript
- ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="/static/js/jquery.js"></script>
-  <script src="/static/js/bootstrap-transition.js"></script>
-  <script src="/static/js/bootstrap-alert.js"></script>
-  <script src="/static/js/bootstrap-modal.js"></script>
-  <script src="/static/js/bootstrap-dropdown.js"></script>
-  <script src="/static/js/bootstrap-scrollspy.js"></script>
-  <script src="/static/js/bootstrap-tab.js"></script>
-  <script src="/static/js/bootstrap-tooltip.js"></script>
-  <script src="/static/js/bootstrap-popover.js"></script>
-  <script src="/static/js/bootstrap-button.js"></script>
-  <script src="/static/js/bootstrap-collapse.js"></script>
-  <script src="/static/js/bootstrap-carousel.js"></script>
-  <script src="/static/js/bootstrap-typeahead.js"></script>
-</head>
-
-<body>
-
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="#">Online Image Collection System</a>
-      <div class="nav-collapse">
-        <ul class="nav">
-          <li><a href="/"><i class="icon-home icon-white"></i>Home</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-
-      <div class="nav-collapse">
-        {% if user_is_logged_in %}
-        <ul class="nav pull-right">
-          <li><p class="navbar-text">Welcome! {{user_obj}}. </p></li>
-          <li><a href="/account"><i class="icon-cog icon-white"></i>Account</a></li>
-          <li><a href={{user_url}}><i class="icon-off icon-white"></i>Logout</a></li>
-        </ul>
-        {% else %}
-        <ul class="nav pull-right">
-          <li><a href={{user_url}}>Sign in</a></li>
-        </ul>
-        {% endif %}
-      </div><!-- /.nav-collapse-->
-    </div>
-  </div>
-</div>
-
-<div id="body" class="container">
-  <h1>404</h1>
-</div> <!-- #body -->
-
-
-</body>
-</html>
+{% block body %}
+  <div id="body" class="container">
+    <h1>404</h1>
+  </div> <!-- #body -->
+{% endblock %}

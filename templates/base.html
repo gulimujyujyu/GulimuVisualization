@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Hello World {% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  {% block default_css_include %}
+    <!-- Le styles -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+  {% endblock %}
+  {% block more_css_include %}
+  {% endblock %}
+
+  {% block default_js_include %}
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+    <!-- javascripts for index.html -->
+    <!-- Le javascript
+   ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap-transition.js"></script>
+    <script src="/static/js/bootstrap-alert.js"></script>
+    <script src="/static/js/bootstrap-modal.js"></script>
+    <script src="/static/js/bootstrap-dropdown.js"></script>
+    <script src="/static/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/js/bootstrap-tab.js"></script>
+    <script src="/static/js/bootstrap-tooltip.js"></script>
+    <script src="/static/js/bootstrap-popover.js"></script>
+    <script src="/static/js/bootstrap-button.js"></script>
+    <script src="/static/js/bootstrap-collapse.js"></script>
+    <script src="/static/js/bootstrap-carousel.js"></script>
+    <script src="/static/js/bootstrap-typeahead.js"></script>
+  {% endblock %}
+
+  {% block more_js_include %}
+  {% endblock %}
+</head>
+
+<body>
+
+{% block navbar %}
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Visualization</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li {% block nav_home_class %}{% endblock %}><a href="/"><i class="icon-home icon-white"></i>Home</a></li>
+            <li {% block nav_visualizations_class %}class="dropdown"{% endblock %} id="menu1">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+                Visualizations
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                {% block nav_visualizations %}
+                  <li><a href="/weibo">Calender View of Sina Weibo</a></li>
+                {% endblock %}
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+
+        <div class="nav-collapse">
+          {% if user_is_logged_in %}
+            <ul class="nav pull-right">
+              <li><p class="navbar-text">Welcome! {{user_obj}}. </p></li>
+              <li {% block nav_account_class %}{% endblock %}><a href="/account"><i class="icon-cog
+              icon-white"></i>Account</a></li>
+              <li {% block nav_logout_class %}{% endblock %}><a href={{user_url}}><i class="icon-off
+              icon-white"></i>Logout</a></li>
+            </ul>
+          {% else %}
+            <ul class="nav pull-right">
+              <li {% block nav_login_class %}{% endblock %}><a href={{user_url}}>Sign in</a></li>
+            </ul>
+          {% endif %}
+        </div><!-- /.nav-collapse-->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>
