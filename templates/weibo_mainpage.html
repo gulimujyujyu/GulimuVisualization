@@ -1,0 +1,77 @@
+{% extends "base_visualizations.html" %}
+
+{% block title %}Hello World {% endblock %}
+
+{% block default_css_include %}
+  <!-- Le styles -->
+  <link href="/static/css/bootstrap.css" rel="stylesheet">
+  <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+{% endblock %}
+
+{% block more_css_include %}
+  <link href="/static/css/weibo.css" rel="stylesheet">
+{% endblock %}
+
+{% block more_js_include %}
+  <script type="text/javascript" src="/static/js/weibo_mainpage.js"></script>
+{% endblock %}
+
+{% block nav_visualizations %}
+  <li class="active"><a href="/weibo">Calender View of Sina Weibo</a></li>
+{% endblock %}
+
+{% block body %}
+  <div id="body" class="container">
+    <div class="row">
+
+      {% if oauth2_access_token %}
+        <div class="span12">
+          <form class="form-horizontal" action="/weibo/result" method="GET">
+            <legend>Check it out!</legend>
+            <div class="control-group">
+              <label class="control-label">Geo Location</label>
+              <div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on">Access-token</span><input type="text" class="input-xxlarge disabled"
+                                                              id="access_token"
+                                                        name="access_token" value="{{ oauth2_access_token }}">
+                </div>
+              </div>
+              <div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on">Expires</span><input type="text" class="input-small disabled" id="expires_in"
+                                                            name="expires_in" value="{{ oauth2_expires_in }}">
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Upload</button>
+                <!--<input type="submit" name="submit" value="Submit">-->
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="span6">
+          <table class="table table-striped">
+            <thead><tr><th>Key</th><th>Value</th></tr></thead>
+            <tbody>
+            <tr><td>Access Token</td><td>{{ oauth2_access_token }}</td></tr>
+            <tr><td>Expires in</td><td>{{ oauth2_expires_in }}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="span6">
+          <table class="table table-striped">
+            <thead><tr><th>Key</th><th>Value</th></tr></thead>
+            <tbody>
+            <tr><td>OAuth Url</td><td>{{ oauth2_auth_url }}</td></tr>
+            <tr><td>Authorize</td><td><a href="{{ oauth2_auth_url }}" class="btn">Auth</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  </div> <!-- #body -->
+{% endblock %}
