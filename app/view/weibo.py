@@ -48,29 +48,40 @@ class ResultPage(webapp2.RequestHandler):
 
     access_token = self.request.get('access_token')
     expires_in = self.request.get('expires_in')
+    page = self.request.get('page')
 
     if access_token:
       client.set_access_token(access_token=access_token,expires_in=expires_in)
-      res = client.get.statuses__user_timeline(screen_name="gulimujyujyu",count=200)
+      if page == '':
+        res = client.get.statuses__user_timeline(count=100)
+      else:
+        res = client.get.statuses__user_timeline(count=100,page=page)
       timeline = []
 
       if res['total_number'] > 0:
         timeline[len(timeline):] = (res.statuses)
-        i=1
-        logging.info("/weibo:\t%d:%d" % (i,len(res.statuses)))
-        for i in range(2, int(math.ceil(float(res['total_number'])/float(len(res.statuses))))+1):
-          res = client.get.statuses__user_timeline(screen_name="gulimujyujyu",count=200,page=i)
-          timeline[len(timeline):] = (res.statuses)
-          logging.info("/weibo:\t%d:%d" % (i,len(res.statuses)))
+        i=1 if page=='' else page
+        logging.info("/weibo:\t%s:%d" % (i,len(res.statuses)))
+        if page == '':
+          for i in range(2, int(math.ceil(float(res['total_number'])/float(len(res.statuses))))+1):
+            res = client.get.statuses__user_timeline(count=100,page=i)
+            timeline[len(timeline):] = (res.statuses)
+            logging.info("/weibo:\t%d:%d" % (i,len(res.statuses)))
 
-      logging.info("/weibo:\t%s" % res['total_number'])
-      logging.info("/weibo:\t%s" % res['next_cursor'])
-      logging.info("/weibo:\t%s" % res['previous_cursor'])
+      logging.info("/weibo:\t%s:%s" % ('total_number',res['total_number']))
+      logging.info("/weibo:\t%s:%s" % ('next_cursor',res['next_cursor']))
+      logging.info("/weibo:\t%s:%s" % ('previous_cursor',res['previous_cursor']))
 
       template_values['weibo_list'] = timeline
 
     self.response.out.write(django_loader.render_to_string('weibo_result.html', template_values))
 
+class CalendarPage(webapp2.RequestHandler):
+  def get(self):
+    template_values = {}
+    self.response.out.write(django_loader.render_to_string('weibo_calendar.html', template_values))
+
 app = webapp2.WSGIApplication([('/weibo/?',MainPage),
-  ('/weibo/result',ResultPage)],
+  ('/weibo/result',ResultPage),
+  ('/weibo/calendar',CalendarPage)],
   debug=True)

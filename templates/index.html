@@ -10,20 +10,24 @@
   <link href="/static/css/index.css" rel="stylesheet">
 {% endblock %}
 
+{% block more_js_include %}
+<script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}
+
 {% block body %}
 <div id="body" class="container">
   <div class="row">
     <div class="span12">
       <ul class="thumbnails porfolio">
         <li class="span4">
-          <a rel="popover"  href="#" class="thumbnail" data-content="CSIS8503 Final Project"
+          <a rel="popover" href="/weibo" class="thumbnail" data-content="CSIS8503 Final Project"
                 data-original-title="Calendar View for Weibo">
             <img src="http://placehold.it/360x267" alt="Calendar View"/>
           </a>
         </li>
         <li class="span2">
-          <a href="#" class="thumbnail" data-content="TODO"
-               data-original-title="TODO">
+          <a href="/weibo/calendar" class="thumbnail" data-content="Calendar View from d3.js"
+               data-original-title="d3.js calendar">
             <img src=" http://placehold.it/160x120" alt="Calendar View"/>
           </a>
         </li>

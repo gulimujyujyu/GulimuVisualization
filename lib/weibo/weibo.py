@@ -126,7 +126,7 @@ def _http_call(url, method, authorization, **kw):
       headers['Content-Type'] = 'multipart/form-data; boundary=%s' % boundary
 
     resp = urlfetch.fetch(url=http_url,payload=http_body,method=method,headers=headers)
-    if resp.status_code in (200,400):
+    if resp.status_code in range(200,501):
       body = resp.content
       r = json.loads(body, object_hook=_obj_hook)
       if hasattr(r, 'error_code'):
