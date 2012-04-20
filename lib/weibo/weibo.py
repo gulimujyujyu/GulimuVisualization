@@ -13,8 +13,8 @@ try:
 except ImportError:
     import simplejson as json
 import time
+from google.appengine.api import urlfetch
 import urllib
-import urllib2
 import logging
 
 def _obj_hook(pairs):
@@ -113,22 +113,27 @@ def _http_call(url, method, authorization, **kw):
     params = None
     boundary = None
     if method==_HTTP_UPLOAD:
-        params, boundary = _encode_multipart(**kw)
+        params, boundary = urllib.urlencode(kw)
     else:
-        params = _encode_params(**kw)
+        params = urllib.urlencode(kw)
     http_url = '%s?%s' % (url, params) if method==_HTTP_GET else url
     http_body = None if method==_HTTP_GET else params
-    req = urllib2.Request(http_url, data=http_body)
+    headers={}
+    method = urlfetch.GET if method==_HTTP_GET else urlfetch.POST
     if authorization:
-        req.add_header('Authorization', 'OAuth2 %s' % authorization)
+      headers['Authorization'] = 'OAuth2 %s' % authorization
     if boundary:
-        req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
-    resp = urllib2.urlopen(req)
-    body = resp.read()
-    r = json.loads(body, object_hook=_obj_hook)
-    if hasattr(r, 'error_code'):
+      headers['Content-Type'] = 'multipart/form-data; boundary=%s' % boundary
+
+    resp = urlfetch.fetch(url=http_url,payload=http_body,method=method,headers=headers)
+    if resp.status_code in (200,400):
+      body = resp.content
+      r = json.loads(body, object_hook=_obj_hook)
+      if hasattr(r, 'error_code'):
         raise APIError(r.error_code, getattr(r, 'error', ''), getattr(r, 'request', ''))
-    return r
+      return r
+    else:
+      raise APIError(resp.status_code, 'urlfetch failed', 'request: %s' % http_url)
 
 class HttpObject(object):
 
