@@ -5,6 +5,4 @@
  * Time: 下午5:39
  * To change this template use File | Settings | File Templates.
  */
-$(document).ready(function(){
-    $('.dropdown-toggle').dropdown()
-});
+

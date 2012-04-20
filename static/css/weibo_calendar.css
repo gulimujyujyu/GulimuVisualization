@@ -3,13 +3,23 @@
   shape-rendering: crispEdges;
 }
 
-.day {
+rect.day, rect.month {
   fill: #fff;
   stroke: #ccc;
 }
 
-.month {
+path.month, path.year {
   fill: none;
   stroke: #000;
   stroke-width: 2px;
+}
+
+div#vertical_nav {
+    position: fixed;
+    top: 60px;
+}
+
+div#weibo_table_container {
+    position: fixed;
+    top: 60px;
 }

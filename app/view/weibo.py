@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 __author__ = 'xlzhu'
 
 import os
@@ -9,11 +11,26 @@ from lib.weibo import weibo
 import webapp2
 import logging
 import json
+import re
 import math
 from django.template import loader as django_loader
 from google.appengine.api import urlfetch
 
 client = weibo.APIClient(app_key=GLOBAL_SETTINGS.WEIBO_KEY, app_secret=GLOBAL_SETTINGS.WEIBO_SECRET)
+MONTHS = {
+  'jan':1,
+  'feb':2,
+  'mar':3,
+  'apr':4,
+  'may':5,
+  'jun':6,
+  'jul':7,
+  'aug':8,
+  'sep':9,
+  'oct':10,
+  'nov':11,
+  'dec':12
+}
 
 class MainPage(webapp2.RequestHandler):
   def get(self):
@@ -71,6 +88,21 @@ class ResultPage(webapp2.RequestHandler):
       logging.info("/weibo:\t%s:%s" % ('total_number',res['total_number']))
       logging.info("/weibo:\t%s:%s" % ('next_cursor',res['next_cursor']))
       logging.info("/weibo:\t%s:%s" % ('previous_cursor',res['previous_cursor']))
+
+      template_values['weibo_json'] = json.dumps(timeline)
+
+      for i in range(0,len(timeline)):
+        tm = timeline[i]['created_at']
+        #Thu Apr 19 23:43:02 +0800 2012
+        match = re.search(r'(\w+)\s(\w+)\s(\d+)\s(\d+):(\d+):(\d+)\s(\S+)\s(\d+)', tm.encode('ascii','ignore'))
+        if match:
+          yy = int(match.group(8))
+          mm = MONTHS[str.lower(match.group(2))]
+          dd = int(match.group(3))
+          #logging.info("/weibo:\t(yy,mm,dd):(%04d,%02d,%02d)" % (yy,mm,dd))
+          timeline[i]['day_key'] = '%04d-%02d-%02d' % ( yy, mm, dd)
+          timeline[i]['month_key'] = '%04d-%02d' % ( yy, mm)
+          timeline[i]['year_key'] = '%04d' % yy
 
       template_values['weibo_list'] = timeline
 

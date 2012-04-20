@@ -1,6 +1,7 @@
 {% extends "base_visualizations.html" %}
 
 {% block title %}Hello World {% endblock %}
+{% block logo_name %}Weibo Visualization {% endblock %}
 
 {% block default_css_include %}
   <!-- Le styles -->
@@ -22,6 +23,13 @@
 
 {% block body %}
   <div id="body" class="container">
+    <div class="row">
+      <div class="alert alert-info">
+        <a class="close" data-dismiss="alert">×</a>
+        <h4 class="alert-heading">Welcome</h4>
+        <p>Click <span class="badge">auth</span> to continue.</p>
+      </div>
+    </div>
     <div class="row">
 
       {% if oauth2_access_token %}
