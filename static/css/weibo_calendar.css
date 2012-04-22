@@ -3,9 +3,16 @@
   shape-rendering: crispEdges;
 }
 
-rect.day, rect.month {
+rect.day, rect.month, rect.rr {
   fill: #fff;
   stroke: #ccc;
+}
+
+text.rr_title_x, text.rr_title_y {
+    font-weight: bold;
+    font-size: 12px;
+    text-transform:uppercase;
+    fill: #CCC;
 }
 
 path.month, path.year {
@@ -15,8 +22,8 @@ path.month, path.year {
 }
 
 div#vertical_nav {
-    position: fixed;
-    top: 60px;
+    /*position: fixed;
+    top: 60px;*/
 }
 
 div#weibo_table_container {
