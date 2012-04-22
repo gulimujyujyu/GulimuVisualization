@@ -385,7 +385,7 @@ $(document).ready(function(){
       .enter().append("text")
       .attr("class","rr_label_x")
       .text(function(d){ return d;})
-      .attr("transform",function(d){ return "translate(" + (d+.5)*rr_view_option.z + ",-6)";});
+      .attr("transform",function(d){ return "translate(" + (d+.25)*rr_view_option.z + ",-6)";});
 
   rr_view.selectAll("text.rr_label_y")
       .data(d3.range(rr_mat_y_max))

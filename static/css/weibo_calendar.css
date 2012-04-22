@@ -26,6 +26,11 @@ div#vertical_nav {
     top: 60px;*/
 }
 
+div#nav_pages {
+    position: fixed;
+    bottom: 0px;
+}
+
 div#weibo_table_container {
     position: fixed;
     top: 60px;

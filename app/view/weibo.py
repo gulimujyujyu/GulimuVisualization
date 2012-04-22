@@ -67,6 +67,7 @@ class ResultPage(webapp2.RequestHandler):
     expires_in = self.request.get('expires_in')
     page = self.request.get('page')
 
+    pages = None;
     if access_token:
       client.set_access_token(access_token=access_token,expires_in=expires_in)
       if page == '':
@@ -75,9 +76,13 @@ class ResultPage(webapp2.RequestHandler):
         res = client.get.statuses__user_timeline(count=100,page=page)
       timeline = []
 
-      if res['total_number'] > 0:
+      if res['total_number'] > 0 and len(res.statuses) > 0:
+        pages = range(1,int(math.ceil(float(res['total_number'])/100))+1);
         timeline[len(timeline):] = (res.statuses)
-        i=1 if page=='' else page
+        if page=='':
+          i=1
+        else:
+          i=page
         logging.info("/weibo:\t%s:%d" % (i,len(res.statuses)))
         if page == '':
           for i in range(2, int(math.ceil(float(res['total_number'])/float(len(res.statuses))))+1):
@@ -105,6 +110,9 @@ class ResultPage(webapp2.RequestHandler):
           timeline[i]['year_key'] = '%04d' % yy
 
       template_values['weibo_list'] = timeline
+      template_values['pages'] = pages
+      template_values['page_url'] = re.sub(r'page=(\d+)?','page',self.request.uri)
+      template_values['current_page'] = page
 
     self.response.out.write(django_loader.render_to_string('weibo_result.html', template_values))
 
