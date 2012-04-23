@@ -34,7 +34,7 @@ $(document).ready(function(){
   var day_view_option = {
     "m": [10, 10, 10, 20], // top right bottom left margin
     "w": $('#day_view').width() - 10 - 20, // - m[1] - m[3], // width
-    "h": 5000 - 10 - 10, // - m[0] - m[2], // height
+    "h": 1000 - 10 - 10, // - m[0] - m[2], // height
     "z": 20,
     "current_year": year(current_date),
     "current_month": month(current_date),
@@ -160,7 +160,7 @@ $(document).ready(function(){
   var month_view_option = {
     "m": [10, 0, 10, 20], // top right bottom left margin
     "w": $('#month_view').width() - 0 - 20, // - m[1] - m[3], // width
-    "h": 5000 - 10 - 10, // - m[0] - m[2], // height
+    "h": 1000 - 10 - 10, // - m[0] - m[2], // height
     "cw": 20,
     "ch": 20,
     "current_year": year(current_date),
@@ -295,7 +295,7 @@ $(document).ready(function(){
   var rr_view_option = {
     "m": [40, 0, 10, 40], // top right bottom left margin
     "w": $('#rr_view').width() - 0 - 20, // - m[1] - m[3], // width
-    "h": 5000 - 10 - 10, // - m[0] - m[2], // height
+    "h": 1000 - 10 - 10, // - m[0] - m[2], // height
     "z": 20,
     "label_offset": 100,
     "nav_offset": 10,
