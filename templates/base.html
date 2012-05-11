@@ -9,8 +9,9 @@
 
   {% block default_css_include %}
     <!-- Le styles -->
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
-    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/css/default-viz.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
   {% endblock %}
   {% block more_css_include %}
   {% endblock %}
@@ -55,7 +56,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">{% block logo_name %} Visualization {% endblock %}</a>
+        <a class="brand" href="#">
+          <img class="site-box-shadow site-mini-logo" src="/static/img/gulimujyujyu-logo-28x28.png" alt="logo">
+          {% block logo_name %} Visualization {% endblock %}
+        </a>
         <div class="nav-collapse">
           <ul class="nav">
             <li {% block nav_home_class %}{% endblock %}><a href="/"><i class="icon-home icon-white"></i>Home</a></li>
